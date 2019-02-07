@@ -1,22 +1,41 @@
 <?php
 
+// ---------------------------------------------------------------------------------------------------------
+// include config...
+// ---------------------------------------------------------------------------------------------------------
+
 $conf = include_once('config.php');
 
+// ---------------------------------------------------------------------------------------------------------
+// set current time...
 // ---------------------------------------------------------------------------------------------------------
 
 date_default_timezone_set('Europe/London');
 $time = time();
 
 // ---------------------------------------------------------------------------------------------------------
+// label locations...
+// ---------------------------------------------------------------------------------------------------------
+
+$emonbase = "emonbase.pdf";
+$emonevse = "emonevse.pdf";
+$emonpi   = "emonpi.pdf";
+$emonth   = "emonth.pdf";
+$emontx   = "emontx.pdf";
+$reuse    = "reuse.pdf";
+$shield   = "shield.pdf";
+
+// ---------------------------------------------------------------------------------------------------------
+// label print...
+// ---------------------------------------------------------------------------------------------------------
 
 $labelErr = $copyErr = $colourErr = "";
 $label = $copy = $colour = "";
 
 
-$printer = $conf("printer");
+$printer = $conf["printer"];
 $color_option = "";
 $copy_option = "";
-$print_options = "-o KCEcoprint=Off -o MediaType=Transparency -o ColorModel=cmyk -o copies=1";
 
 if ($action = filter_input(INPUT_POST, "submit", FILTER_SANITIZE_STRING)) {
 
@@ -42,9 +61,8 @@ if ($action = filter_input(INPUT_POST, "submit", FILTER_SANITIZE_STRING)) {
      $label_print_type = $label;
      //$copy_option = $copy;
      $color_option = $colour;
-     error_log("lpr -P" . $printer . $label_print_type .
-     "-o KCEcoprint=Off -o MediaType=Transparency -o ColorModel=cmyk -o copies=1"
-     );
+     error_log("lpr -P" . " " . $printer . " " . $label_print_type . " " .
+     "-o KCEcoprint=Off -o MediaType=Transparency -o ColorModel=$colour -o copies=$copy");
      $get_info = "?label=$label&copies=$copy&colour=$colour&time=$time";
      header("Location: ".$_SERVER['PHP_SELF'].$get_info);
   }
@@ -71,28 +89,44 @@ if ($action = filter_input(INPUT_POST, "submit", FILTER_SANITIZE_STRING)) {
     
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       
-      
-      <input type="radio" name="label" <?php if (isset($label) && $label == "emonpi.pdf") echo "checked";?> value="emonpi.pdf"> emonPi Box
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $emonpi) echo "checked";?>
+        value=<?php echo $emonpi ?>> emonPi Box
       <br>
-      <input type="radio" name="label" <?php if (isset($label) && $label == "Shield") echo "checked";?> value="Shield"> Shield
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $shield) echo "checked";?>
+        value=<?php echo $shield ?>> Shield
       <br>
-      <input type="radio" name="label" <?php if (isset($label) && $label == "emonTx")   echo "checked";?> value="emonTx"> emonTx
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $emontx) echo "checked";?>
+        value=<?php echo $emontx ?>> emonTx
       <br>
-      <input type="radio" name="label" <?php if (isset($label) && $label == "emonTH")   echo "checked";?> value="emonTH"> emonTH
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $emonth) echo "checked";?>
+        value=<?php echo $emonth ?>> emonTH
       <br>
-      <input type="radio" name="label" <?php if (isset($label) && $label == "Re-Use")   echo "checked";?> value="Re-Use"> Re-Use
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $reuse) echo "checked";?>
+        value=<?php echo $reuse ?>> Re-Use
       <br>
-      <input type="radio" name="label" <?php if (isset($label) && $label == "emonEVSE") echo "checked";?> value="emonEVSE">emonEVSE
+      <input type="radio" name="label"
+        <?php if (isset($label) && $label == $emonevse) echo "checked";?>
+        value=<?php echo $emonevse ?>>emonEVSE
     
       <br><br>
       
       Copies:
       
-      <input type="radio" name="copy" <?php if ((isset($copy) && $copy == "1") || (empty($copy))) echo "checked";?> value="1">1
-      <input type="radio" name="copy" <?php if (isset($copy) && $copy == "2") echo "checked";?> value="2">2
-      <input type="radio" name="copy" <?php if (isset($copy) && $copy == "3") echo "checked";?> value="3">3
-      <input type="radio" name="copy" <?php if (isset($copy) && $copy == "4") echo "checked";?> value="4">4
-      <input type="radio" name="copy" <?php if (isset($copy) && $copy == "5") echo "checked";?> value="5">5
+      <input type="radio" name="copy"
+        <?php if ((isset($copy) && $copy == "1") || (empty($copy))) echo "checked";?> value="1">1
+      <input type="radio" name="copy"
+        <?php if (isset($copy) && $copy == "2") echo "checked";?> value="2">2
+      <input type="radio" name="copy"
+        <?php if (isset($copy) && $copy == "3") echo "checked";?> value="3">3
+      <input type="radio" name="copy"
+        <?php if (isset($copy) && $copy == "4") echo "checked";?> value="4">4
+      <input type="radio" name="copy"
+        <?php if (isset($copy) && $copy == "5") echo "checked";?> value="5">5
     
       <br><br>
       
