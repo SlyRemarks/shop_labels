@@ -4,6 +4,15 @@ body {
   color: #000;
 }
 
+a {
+  text-decoration: none !important;
+  color: #fff;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+}
+
 input[type=submit] {
   cursor: pointer;
   background-color: #44b3e2;
@@ -20,6 +29,11 @@ input[type=submit]:hover {
 
 label {
   cursor: pointer;
+}
+
+label.label-option{
+  display: block;
+  padding: 10px;
 }
 
 .shop_heading {
