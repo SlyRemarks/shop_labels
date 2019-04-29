@@ -22,8 +22,8 @@ $emonevse = "emonevse.pdf";
 $emonpi   = "emonpi.pdf";
 $emonth   = "emonth.pdf";
 $emontx   = "emontx.pdf";
-$reuse    = "Poem_Print.pdf";
-$shield   = "Translations_Print.pdf";
+$reuse    = "reuse.pdf";
+$shield   = "shield.pdf";
 
 // ---------------------------------------------------------------------------------------------------------
 // label print...
